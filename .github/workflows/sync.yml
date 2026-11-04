@@ -1,0 +1,129 @@
+name: sync-upstream
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [upstreams.json, .github/workflows/sync.yml]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-upstream
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Sync upstream skills
+        id: sync
+        shell: bash
+        run: |
+          set -euo pipefail
+          set -f  # keep "*" in include patterns from being glob-expanded by the shell
+          tmp="$(mktemp -d)"
+          [ -f skills.lock.json ] || echo '[]' > skills.lock.json
+          n="$(jq length upstreams.json)"
+
+          # Each upstream runs in its own subshell: a failure keeps that upstream's
+          # previous files and lock entry, and the others still sync.
+          for i in $(seq 0 $((n - 1))); do
+            set +e
+            (
+              set -e
+              e="$(jq -c ".[$i]" upstreams.json)"
+              repo="$(jq -r .repo <<<"$e")"
+              ref="$(jq -r .ref <<<"$e")"
+              src="$tmp/src/$i"
+              stage="$tmp/stage/$i"
+              git clone -q --depth 1 --filter=blob:none --sparse -b "$ref" "https://github.com/$repo.git" "$src"
+              git -C "$src" sparse-checkout set $(jq -r '.map | keys | join(" ")' <<<"$e")
+              sha="$(git -C "$src" rev-parse HEAD)"
+              license="$(cd "$src" && ls | grep -iE '^(license|licence|copying)' | head -1 || true)"
+
+              # Stage every path first, so a half-finished upstream never touches skills/.
+              for path in $(jq -r '.map | keys[]' <<<"$e"); do
+                test -d "$src/$path" || { echo "path $path not found"; exit 1; }
+                out="$stage/$path"
+                mkdir -p "$out"
+                if jq -e 'has("include")' <<<"$e" >/dev/null; then
+                  for pat in $(jq -r '.include[]' <<<"$e"); do
+                    (cd "$src/$path" && find . -type f -path "./$pat") | while read -r f; do
+                      mkdir -p "$out/$(dirname "$f")"
+                      cp "$src/$path/$f" "$out/$f"
+                    done
+                  done
+                else
+                  cp -R "$src/$path/." "$out/"
+                fi
+                if [ -n "$license" ] && [ ! -e "$out/$license" ]; then
+                  cp "$src/$license" "$out/$license"
+                fi
+              done
+
+              for path in $(jq -r '.map | keys[]' <<<"$e"); do
+                dest="$(jq -r --arg p "$path" '.map[$p]' <<<"$e")"
+                rm -rf "$dest"
+                mkdir -p "$(dirname "$dest")"
+                mv "$stage/$path" "$dest"
+              done
+
+              jq -c --arg sha "$sha" '{repo, ref, sha: $sha, map}' <<<"$e" > "$tmp/lock.$i.json"
+              echo "$repo@${sha:0:7}" > "$tmp/ok.$i"
+            ) > "$tmp/log.$i" 2>&1
+            rc=$?
+            set -e
+            repo="$(jq -r ".[$i].repo" upstreams.json)"
+            if [ $rc -ne 0 ]; then
+              echo "::error::$repo: $(tail -1 "$tmp/log.$i")"
+              echo "$repo" >> "$tmp/failed"
+            fi
+          done
+
+          # Remove directories that an earlier sync created but upstreams.json no longer maps.
+          # Only paths recorded in the lock are candidates, so hand-written files are never removed.
+          jq -r '.[].map[]' skills.lock.json | sort -u > "$tmp/old-dests"
+          jq -r '.[].map[]' upstreams.json | sort -u > "$tmp/new-dests"
+          comm -23 "$tmp/old-dests" "$tmp/new-dests" | while read -r gone; do
+            echo "removing $gone (no longer in upstreams.json)"
+            rm -rf "$gone"
+          done
+
+          # New lock: fresh entries for synced upstreams, previous entries for failed ones.
+          for i in $(seq 0 $((n - 1))); do
+            if [ -f "$tmp/lock.$i.json" ]; then
+              cat "$tmp/lock.$i.json"
+            else
+              jq -c --arg r "$(jq -r ".[$i].repo" upstreams.json)" '.[] | select(.repo == $r)' skills.lock.json
+            fi
+          done | jq -s . > "$tmp/lock.json"
+          mv "$tmp/lock.json" skills.lock.json
+
+          set +f
+          summary="$({ cat "$tmp"/ok.* 2>/dev/null || true; } | paste -sd, - | sed 's/,/, /g')"
+          failed="$({ cat "$tmp/failed" 2>/dev/null || true; } | paste -sd, - | sed 's/,/, /g')"
+          echo "summary=$summary" >> "${GITHUB_OUTPUT:-/dev/null}"
+          echo "failed=$failed" >> "${GITHUB_OUTPUT:-/dev/null}"
+          echo "synced: ${summary:-none}"
+          echo "failed: ${failed:-none}"
+          rm -rf "$tmp"
+
+      - name: Check before committing
+        uses: ./.github/actions/check
+
+      - uses: stefanzweifel/git-auto-commit-action@d0b01107b5db882071f96de5dd4b54961ea93f4c # v7.2.1
+        with:
+          commit_message: "sync: ${{ steps.sync.outputs.summary }}"
+          file_pattern: skills skills.lock.json
+
+      - name: Report failed upstreams
+        if: steps.sync.outputs.failed != ''
+        run: |
+          echo "::error::These upstreams failed and kept their previous version: ${{ steps.sync.outputs.failed }}"
+          exit 1

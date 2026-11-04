@@ -1,0 +1,11 @@
+{
+  "name": "draco-skills",
+  "owner": { "name": "draco-china" },
+  "plugins": [
+    {
+      "name": "draco-skills",
+      "source": "./",
+      "description": "A curated skills collection for Claude Code and Codex, with upstream skills synced daily"
+    }
+  ]
+}

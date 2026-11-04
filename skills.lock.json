@@ -1,0 +1,56 @@
+[
+  {
+    "repo": "Leonxlnx/taste-skill",
+    "ref": "main",
+    "sha": "12af471f627f866411b4bd785b19646d3672784c",
+    "map": {
+      "skills/taste-skill": "skills/design-taste-frontend"
+    }
+  },
+  {
+    "repo": "pbakaus/impeccable",
+    "ref": "main",
+    "sha": "695cea5c6d1cbd420fc331375c7ef126a774e5f7",
+    "map": {
+      ".agents/skills/impeccable": "skills/impeccable"
+    }
+  },
+  {
+    "repo": "tt-a1i/archify",
+    "ref": "main",
+    "sha": "a4065941f12be7967436261d9934784e381d423c",
+    "map": {
+      "archify": "skills/archify"
+    }
+  },
+  {
+    "repo": "hyhmrright/brooks-lint",
+    "ref": "main",
+    "sha": "17cdd1c7a6507e19bfaae821cb7847496f34a2dd",
+    "map": {
+      "skills/_shared": "skills/_shared",
+      "skills/brooks-audit": "skills/brooks-audit",
+      "skills/brooks-debt": "skills/brooks-debt",
+      "skills/brooks-health": "skills/brooks-health",
+      "skills/brooks-review": "skills/brooks-review",
+      "skills/brooks-sweep": "skills/brooks-sweep",
+      "skills/brooks-test": "skills/brooks-test"
+    }
+  },
+  {
+    "repo": "google-labs-code/design.md",
+    "ref": "main",
+    "sha": "6e5da5382f41edbba9d73b2c62f33f32e9971f15",
+    "map": {
+      "docs": "skills/design-md/references/design.md"
+    }
+  },
+  {
+    "repo": "VoltAgent/awesome-design-md",
+    "ref": "main",
+    "sha": "fcc70284932276d085f01ef9f83edde90b1258cb",
+    "map": {
+      "design-md": "skills/design-md/references/awesome-design-md"
+    }
+  }
+]

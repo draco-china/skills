@@ -1,0 +1,42 @@
+[
+  {
+    "repo": "Leonxlnx/taste-skill",
+    "ref": "main",
+    "map": { "skills/taste-skill": "skills/design-taste-frontend" }
+  },
+  {
+    "repo": "pbakaus/impeccable",
+    "ref": "main",
+    "map": { ".agents/skills/impeccable": "skills/impeccable" }
+  },
+  {
+    "repo": "tt-a1i/archify",
+    "ref": "main",
+    "map": { "archify": "skills/archify" }
+  },
+  {
+    "repo": "hyhmrright/brooks-lint",
+    "ref": "main",
+    "map": {
+      "skills/_shared": "skills/_shared",
+      "skills/brooks-audit": "skills/brooks-audit",
+      "skills/brooks-debt": "skills/brooks-debt",
+      "skills/brooks-health": "skills/brooks-health",
+      "skills/brooks-review": "skills/brooks-review",
+      "skills/brooks-sweep": "skills/brooks-sweep",
+      "skills/brooks-test": "skills/brooks-test"
+    }
+  },
+  {
+    "repo": "google-labs-code/design.md",
+    "ref": "main",
+    "map": { "docs": "skills/design-md/references/design.md" },
+    "include": ["spec.md"]
+  },
+  {
+    "repo": "VoltAgent/awesome-design-md",
+    "ref": "main",
+    "map": { "design-md": "skills/design-md/references/awesome-design-md" },
+    "include": ["*/DESIGN.md"]
+  }
+]

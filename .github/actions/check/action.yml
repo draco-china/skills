@@ -1,0 +1,32 @@
+name: check
+description: Repository checks shared by the check and sync workflows
+
+runs:
+  using: composite
+  steps:
+    - name: Validate JSON files
+      shell: bash
+      run: |
+        set -euo pipefail
+        for f in upstreams.json skills.lock.json .claude-plugin/*.json; do
+          [ -e "$f" ] && jq empty "$f"
+        done
+
+    - name: SKILL.md name matches its directory
+      shell: bash
+      run: |
+        set -uo pipefail
+        fail=0
+        for f in skills/*/SKILL.md; do
+          dir="$(basename "$(dirname "$f")")"
+          name="$(awk '/^name:/{sub(/^name:[ \t]*/,""); gsub(/["\047]/,""); print; exit}' "$f")"
+          if [ "$name" != "$dir" ]; then
+            echo "::error file=$f::name '$name' does not match directory '$dir'"
+            fail=1
+          fi
+        done
+        exit $fail
+
+    - name: Lint the design-md template against the current DESIGN.md spec
+      shell: bash
+      run: npx --yes @google/design.md lint skills/design-md/assets/DESIGN.template.md

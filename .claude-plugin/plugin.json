@@ -1,0 +1,9 @@
+{
+  "name": "draco-skills",
+  "description": "Curated skills: design (impeccable, design-taste-frontend, design-md), diagrams (archify), and code quality (brooks-*)",
+  "author": {
+    "name": "draco-china"
+  },
+  "repository": "https://github.com/draco-china/skills",
+  "license": "MIT"
+}

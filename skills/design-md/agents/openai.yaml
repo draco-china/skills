@@ -1,0 +1,4 @@
+interface:
+  display_name: "DESIGN.md"
+  short_description: "Create, adopt, lint, and enforce a repository DESIGN.md"
+  default_prompt: "Use $design-md to create or review this project's DESIGN.md visual contract."
