@@ -2,7 +2,7 @@
   {
     "repo": "Leonxlnx/taste-skill",
     "ref": "main",
-    "sha": "12af471f627f866411b4bd785b19646d3672784c",
+    "sha": "9b4bf937a1f69348126959c15d2f99a73e65699b",
     "map": {
       "skills/taste-skill": "skills/design-taste-frontend"
     }
@@ -10,7 +10,7 @@
   {
     "repo": "pbakaus/impeccable",
     "ref": "main",
-    "sha": "695cea5c6d1cbd420fc331375c7ef126a774e5f7",
+    "sha": "5af4319c4e7a7ee3e5e2b9fe899bcfb21c6190cb",
     "map": {
       ".agents/skills/impeccable": "skills/impeccable"
     }
