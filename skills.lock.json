@@ -10,7 +10,7 @@
   {
     "repo": "pbakaus/impeccable",
     "ref": "main",
-    "sha": "5af4319c4e7a7ee3e5e2b9fe899bcfb21c6190cb",
+    "sha": "c3bb418ee38ee49a6b999b7752c1368f3123a2bd",
     "map": {
       ".agents/skills/impeccable": "skills/impeccable"
     }
@@ -26,7 +26,7 @@
   {
     "repo": "hyhmrright/brooks-lint",
     "ref": "main",
-    "sha": "17cdd1c7a6507e19bfaae821cb7847496f34a2dd",
+    "sha": "f34624f7d67855abc55f4ad25399e3bfbaaea66d",
     "map": {
       "skills/_shared": "skills/_shared",
       "skills/brooks-audit": "skills/brooks-audit",
