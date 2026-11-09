@@ -10,7 +10,7 @@
   {
     "repo": "pbakaus/impeccable",
     "ref": "main",
-    "sha": "687bc381bc9091bf252c0a05303640561014a425",
+    "sha": "29f95ac5e6b575c86e0c1cb1b2fbf06c95132bbf",
     "map": {
       ".agents/skills/impeccable": "skills/impeccable"
     }
@@ -18,7 +18,7 @@
   {
     "repo": "tt-a1i/archify",
     "ref": "main",
-    "sha": "a4065941f12be7967436261d9934784e381d423c",
+    "sha": "11b0d6031853bdae89eed57e7979aabbf0034097",
     "map": {
       "archify": "skills/archify"
     }
