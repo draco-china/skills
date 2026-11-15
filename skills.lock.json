@@ -10,7 +10,7 @@
   {
     "repo": "pbakaus/impeccable",
     "ref": "main",
-    "sha": "acb4cfe14470b1fdf51e855431af618d936b7db8",
+    "sha": "2b86d9c07b97d4bed7de23583e1bd1e58dd2baae",
     "map": {
       ".agents/skills/impeccable": "skills/impeccable"
     }
