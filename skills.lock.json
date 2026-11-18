@@ -18,7 +18,7 @@
   {
     "repo": "tt-a1i/archify",
     "ref": "main",
-    "sha": "a7ed6fd6657da90414831d1d42cf95987188750c",
+    "sha": "44781293f38728baf04dbad33ce1a0cef8c39cca",
     "map": {
       "archify": "skills/archify"
     }
@@ -40,7 +40,7 @@
   {
     "repo": "google-labs-code/design.md",
     "ref": "main",
-    "sha": "1ed38aa9dd4451b9039f9aeb9ed1d2579edafddf",
+    "sha": "679d3018869335b8ef7906b69fccfd4d48991d1b",
     "map": {
       "docs": "skills/design-md/references/design.md"
     }
