@@ -10,7 +10,7 @@
   {
     "repo": "pbakaus/impeccable",
     "ref": "main",
-    "sha": "d41d9860b0094dcb68030657da63461212835aaa",
+    "sha": "b49177d32788f2dc585c42831d845dacf1ebed2c",
     "map": {
       ".agents/skills/impeccable": "skills/impeccable"
     }
@@ -40,7 +40,7 @@
   {
     "repo": "google-labs-code/design.md",
     "ref": "main",
-    "sha": "679d3018869335b8ef7906b69fccfd4d48991d1b",
+    "sha": "db977b3c1d1f309269f43d5d17ae828d54bd6ae3",
     "map": {
       "docs": "skills/design-md/references/design.md"
     }
