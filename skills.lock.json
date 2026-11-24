@@ -18,7 +18,7 @@
   {
     "repo": "tt-a1i/archify",
     "ref": "main",
-    "sha": "428ca67657297febfa284a87ec47b306a0290ac5",
+    "sha": "3ca198d867ce4b616332f846ff66e5c8e5e60f95",
     "map": {
       "archify": "skills/archify"
     }
@@ -26,7 +26,7 @@
   {
     "repo": "hyhmrright/brooks-lint",
     "ref": "main",
-    "sha": "5e2d4b92e8e11a0af7e0da6fc074a13b3cf9288c",
+    "sha": "7c1a6f3ce50de016ea0dc2f73db14b061bd11200",
     "map": {
       "skills/_shared": "skills/_shared",
       "skills/brooks-audit": "skills/brooks-audit",
