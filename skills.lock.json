@@ -2,7 +2,7 @@
   {
     "repo": "Leonxlnx/taste-skill",
     "ref": "main",
-    "sha": "6c0b5c78f5d31776e2210305abaa210cdc0030bf",
+    "sha": "d1a2bb41d927083ac7118f60cfc9cdf711810ea0",
     "map": {
       "skills/taste-skill": "skills/design-taste-frontend"
     }
@@ -18,7 +18,7 @@
   {
     "repo": "tt-a1i/archify",
     "ref": "main",
-    "sha": "3ca198d867ce4b616332f846ff66e5c8e5e60f95",
+    "sha": "62f3a995eb26ee23f784bdea4a7992340078e9be",
     "map": {
       "archify": "skills/archify"
     }
